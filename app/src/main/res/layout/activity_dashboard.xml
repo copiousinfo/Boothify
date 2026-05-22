@@ -16,9 +16,9 @@
         android:background="@color/Primary"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Menu Icon -->
         <ImageView
@@ -26,9 +26,9 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@drawable/menu"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- App Logo -->
         <LinearLayout
@@ -36,10 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/txtBooth"
@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:text="Booth"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtIfy"
@@ -56,8 +56,8 @@
                 android:layout_height="wrap_content"
                 android:text="ify"
                 android:textColor="@color/Secondary"
-                android:textStyle="bold"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -66,9 +66,9 @@
             android:id="@+id/notificationLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgNotification"
@@ -86,15 +86,16 @@
         android:id="@+id/profileCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/topNavbar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/topNavbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,9 +127,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/imgProfile"
-                    app:layout_constraintTop_toTopOf="@id/imgProfile"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintTop_toTopOf="@id/imgProfile">
 
                     <!-- NAME -->
                     <TextView
@@ -149,7 +150,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
+                        android:paddingEnd="10dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="16dp"
@@ -188,6 +190,7 @@
                             android:textColor="#1D1D1D"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/txtDivision"
                             android:layout_width="wrap_content"
@@ -217,9 +220,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:text="District :"
-                            android:textStyle="bold"
                             android:textColor="#1D1D1D"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/txtDistrict"
                             android:layout_width="wrap_content"
@@ -242,14 +246,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/assembly" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:text="Assembly :"
-                            android:textStyle="bold"
                             android:textColor="#1D1D1D"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txtAssembly"
@@ -280,8 +285,9 @@
                             android:layout_marginStart="10dp"
                             android:text="Block/Sub Block :"
                             android:textColor="#1D1D1D"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/txtBlock"
                             android:layout_width="wrap_content"
@@ -341,8 +347,8 @@
                             android:id="@+id/txtTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#0B2C6B"
                             android:text="123"
+                            android:textColor="#0B2C6B"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -351,8 +357,8 @@
                             android:layout_height="wrap_content"
                             android:text="Total Members"
                             android:textColor="#0B2C6B"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -402,8 +408,8 @@
                             android:layout_height="wrap_content"
                             android:text="New This Month"
                             android:textColor="#1EBB4F"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -454,8 +460,8 @@
                             android:layout_height="wrap_content"
                             android:text="Today's Added"
                             android:textColor="#FF7A00"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -474,10 +480,10 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/profileCard"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/profileCard">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -499,11 +505,12 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="1"
+                    android:layout_margin="3dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#F8FBFF"
                     app:cardCornerRadius="22dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#F8FBFF">
+                    app:cardElevation="2dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -569,13 +576,15 @@
 
                 <!-- ADD NEW MEMBER -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/addMember"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="1"
+                    android:layout_margin="3dp"
                     android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#F8FFF9"
                     app:cardCornerRadius="22dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#F8FFF9">
+                    app:cardElevation="2dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -618,8 +627,8 @@
                         <LinearLayout
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
                             android:background="@drawable/round_green_btn"
                             android:gravity="center">
 
@@ -647,11 +656,13 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="1"
+
+                    android:layout_margin="3dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#FFF9F4"
                     app:cardCornerRadius="22dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FFF9F4">
+                    app:cardElevation="2dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -694,8 +705,8 @@
                         <LinearLayout
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
                             android:background="@drawable/round_orange_btn"
                             android:gravity="center">
 
@@ -712,12 +723,14 @@
                 <!-- VIEW MEMBERS -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
+
                     android:layout_height="150dp"
-                    android:layout_weight="1"
+                    android:layout_margin="3dp"
                     android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#FBF8FF"
                     app:cardCornerRadius="22dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="#FBF8FF">
+                    app:cardElevation="2dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -760,8 +773,8 @@
                         <LinearLayout
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
                             android:background="@drawable/round_purple_btn"
                             android:gravity="center">
 
@@ -781,4 +794,4 @@
 
     </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

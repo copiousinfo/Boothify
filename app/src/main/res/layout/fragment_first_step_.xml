@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F3F4F6"
     tools:context=".Fragment.FirstStep_Fragment">
 
-    <!-- MAIN CARD -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,14 +21,16 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <!-- STEP INDICATOR -->
+            <!-- ════════════════════════════ -->
+            <!-- STEP INDICATOR              -->
+            <!-- ════════════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Step 1 -->
+                <!-- Step 1 Active -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +45,7 @@
                         android:text="1"
                         android:textColor="#FFFFFF"
                         android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,7 +54,7 @@
                         android:textColor="#0047BB"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
 
                 <!-- Line -->
@@ -62,9 +64,10 @@
                     android:layout_weight="1"
                     android:background="#D1D5DB"
                     android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"/>
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="16dp"/>
 
-                <!-- Step 2 -->
+                <!-- Step 2 Inactive -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -77,9 +80,9 @@
                         android:background="@drawable/icon_gray_bg"
                         android:gravity="center"
                         android:text="2"
-                        android:textColor="@color/white"
+                        android:textColor="#FFFFFF"
                         android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,12 +90,14 @@
                         android:text="Additional Details"
                         android:textColor="#9CA3AF"
                         android:textSize="12sp"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!-- FULL NAME -->
+            <!-- ════════════════════════════ -->
+            <!-- FULL NAME                   -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,8 +105,7 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-
+                android:layout_marginTop="10dp" />
 
             <EditText
                 android:id="@+id/etName"
@@ -113,13 +117,16 @@
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
                 android:hint="Enter full name"
+                android:inputType="textPersonName"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textColor="#111827"
                 android:textColorHint="#9CA3AF"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
-            <!-- MOBILE -->
+            <!-- ════════════════════════════ -->
+            <!-- MOBILE NUMBER               -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +134,7 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,25 +151,31 @@
                     android:drawableStart="@drawable/call"
                     android:drawablePadding="12dp"
                     android:hint="Enter mobile number"
-                    android:inputType="phone"
+                    android:inputType="number"
+                    android:maxLength="10"
                     android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     android:textColor="#111827"
-                    android:textColorHint="#9CA3AF"/>
+                    android:textColorHint="#9CA3AF"
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/btnVerify"
                     android:layout_width="80dp"
-                    android:layout_height="58dp"
+                    android:layout_height="38dp"
                     android:layout_marginStart="10dp"
                     android:backgroundTint="#0047BB"
                     android:text="Verify"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
 
-            <!-- FATHER -->
+            <!-- ════════════════════════════ -->
+            <!-- FATHER / HUSBAND NAME       -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,7 +183,7 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <EditText
                 android:id="@+id/etFather"
@@ -180,12 +193,18 @@
                 android:background="@drawable/edit_bg"
                 android:drawableStart="@drawable/profile_user"
                 android:drawablePadding="12dp"
+                android:gravity="center_vertical"
                 android:hint="Enter father / husband name"
+                android:inputType="textPersonName"
                 android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#111827"
-                android:textColorHint="#9CA3AF"/>
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp" />
 
-            <!-- GENDER -->
+            <!-- ════════════════════════════ -->
+            <!-- GENDER                      -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -193,10 +212,9 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <LinearLayout
-                android:id="@+id/layoutGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -223,9 +241,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="Male"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textColor="#111827"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- Female -->
@@ -250,9 +268,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Female"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"/>
+                        android:textColor="#111827"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- Other -->
@@ -277,20 +295,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="Other"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="12sp"/>
+                        android:textColor="#111827"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!-- DOB + AGE -->
+            <!-- ════════════════════════════ -->
+            <!-- DATE OF BIRTH + AGE         -->
+            <!-- ════════════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp">
 
+                <!-- DOB -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -303,7 +324,7 @@
                         android:text="Date of Birth *"
                         android:textColor="#111827"
                         android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etDob"
@@ -313,12 +334,16 @@
                         android:background="@drawable/edit_bg"
                         android:drawableStart="@drawable/calendar"
                         android:drawablePadding="12dp"
-                        android:hint="Select date"
+                        android:focusable="false"
+                        android:hint="DD/MM/YYYY"
                         android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
                         android:textColor="#111827"
-                        android:textColorHint="#9CA3AF"/>
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="13sp" />
                 </LinearLayout>
 
+                <!-- AGE -->
                 <LinearLayout
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
@@ -331,7 +356,7 @@
                         android:text="Age"
                         android:textColor="#111827"
                         android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etAge"
@@ -341,20 +366,26 @@
                         android:background="@drawable/edit_bg_disabled"
                         android:enabled="false"
                         android:gravity="center"
-                        android:hint="0"/>
+                        android:hint="0"
+                        android:textColor="#6B7280"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!-- BLOCK -->
+            <!-- ════════════════════════════ -->
+            <!-- BLOCK                       -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Block *"
+                android:text="Block / Sub Block *"
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <EditText
                 android:id="@+id/etBlock"
@@ -364,12 +395,18 @@
                 android:background="@drawable/edit_bg"
                 android:drawableStart="@drawable/building"
                 android:drawablePadding="12dp"
-                android:hint="Enter block"
+                android:gravity="center_vertical"
+                android:hint="Type block name..."
+                android:inputType="textCapWords"
                 android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="#111827"
-                android:textColorHint="#9CA3AF"/>
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp" />
 
-            <!-- DIVISION -->
+            <!-- ════════════════════════════ -->
+            <!-- DIVISION (Auto-filled)      -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -377,9 +414,10 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <EditText
+                android:id="@+id/etDivision"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="5dp"
@@ -387,10 +425,16 @@
                 android:drawableStart="@drawable/location"
                 android:drawablePadding="12dp"
                 android:enabled="false"
-                android:text="Secunderabad"
-                android:textColor="#6B7280"/>
+                android:hint="Auto-filled"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#6B7280"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp" />
 
-            <!-- DISTRICT -->
+            <!-- ════════════════════════════ -->
+            <!-- DISTRICT (Auto-filled)      -->
+            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -398,9 +442,10 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <EditText
+                android:id="@+id/etDistrict"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="5dp"
@@ -408,10 +453,16 @@
                 android:drawableStart="@drawable/location"
                 android:drawablePadding="12dp"
                 android:enabled="false"
-                android:text="Hyderabad"
-                android:textColor="#6B7280"/>
+                android:hint="Auto-filled"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#6B7280"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp" />
 
-            <!-- ASSEMBLY -->
+            <!-- ════════════════════════════════════ -->
+            <!-- ASSEMBLY CONSTITUENCY (Auto-filled)  -->
+            <!-- ════════════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -419,9 +470,10 @@
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <EditText
+                android:id="@+id/etAssembly"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:layout_marginTop="5dp"
@@ -429,10 +481,16 @@
                 android:drawableStart="@drawable/location"
                 android:drawablePadding="12dp"
                 android:enabled="false"
-                android:text="Secunderabad Cantonment"
-                android:textColor="#6B7280"/>
+                android:hint="Auto-filled"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#6B7280"
+                android:textColorHint="#9CA3AF"
+                android:textSize="14sp" />
 
-            <!-- NEXT BUTTON -->
+            <!-- ════════════════════════════ -->
+            <!-- NEXT BUTTON                 -->
+            <!-- ════════════════════════════ -->
             <Button
                 android:id="@+id/btnNext"
                 android:layout_width="match_parent"
@@ -444,10 +502,464 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 </ScrollView>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    tools:context=".Fragment.FirstStep_Fragment">-->
+
+<!--    &lt;!&ndash; MAIN CARD &ndash;&gt;-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="5dp"-->
+<!--        app:cardCornerRadius="24dp"-->
+<!--        app:cardElevation="4dp"-->
+<!--        app:cardBackgroundColor="#FFFFFF">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="10dp">-->
+
+<!--            &lt;!&ndash; STEP INDICATOR &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                &lt;!&ndash; Step 1 &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="28dp"-->
+<!--                        android:layout_height="28dp"-->
+<!--                        android:background="@drawable/icon_blue_bg"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="1"-->
+<!--                        android:textColor="#FFFFFF"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Personal Details"-->
+<!--                        android:textColor="#0047BB"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_marginTop="4dp"/>-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Line &ndash;&gt;-->
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="#D1D5DB"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:layout_marginEnd="6dp"/>-->
+
+<!--                &lt;!&ndash; Step 2 &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="28dp"-->
+<!--                        android:layout_height="28dp"-->
+<!--                        android:background="@drawable/icon_gray_bg"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="2"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold"/>-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Additional Details"-->
+<!--                        android:textColor="#9CA3AF"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:layout_marginTop="4dp"/>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; FULL NAME &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Full Name *"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="10dp"/>-->
+
+
+<!--            <EditText-->
+<!--                android:id="@+id/etName"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg"-->
+<!--                android:drawableStart="@drawable/profile_user"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:hint="Enter full name"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textColorHint="#9CA3AF"-->
+<!--                android:textSize="15sp"/>-->
+
+<!--            &lt;!&ndash; MOBILE &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Mobile Number *"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="5dp">-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/etMobile"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="38dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/edit_bg"-->
+<!--                    android:drawableStart="@drawable/call"-->
+<!--                    android:drawablePadding="12dp"-->
+<!--                    android:hint="Enter mobile number"-->
+<!--                    android:inputType="phone"-->
+<!--                    android:paddingStart="12dp"-->
+<!--                    android:textColor="#111827"-->
+<!--                    android:textColorHint="#9CA3AF"/>-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnVerify"-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="58dp"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:backgroundTint="#0047BB"-->
+<!--                    android:text="Verify"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="#FFFFFF"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"/>-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; FATHER &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Father / Husband Name *"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etFather"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg"-->
+<!--                android:drawableStart="@drawable/profile_user"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:hint="Enter father / husband name"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textColorHint="#9CA3AF"/>-->
+
+<!--            &lt;!&ndash; GENDER &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Gender *"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutGender"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                &lt;!&ndash; Male &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/btnMale"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/bg_gender_unselected"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="4dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="18dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:src="@drawable/male" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="4dp"-->
+<!--                        android:text="Male"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp"/>-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Female &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/btnFemale"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:background="@drawable/bg_gender_unselected"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="4dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="18dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:src="@drawable/female" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:text="Female"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="12sp"/>-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Other &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/btnOther"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:background="@drawable/bg_gender_unselected"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="4dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="18dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:src="@drawable/profile_user" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="8dp"-->
+<!--                        android:text="Other"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="12sp"/>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; DOB + AGE &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="5dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Date of Birth *"-->
+<!--                        android:textColor="#111827"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold"/>-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/etDob"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="38dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:background="@drawable/edit_bg"-->
+<!--                        android:drawableStart="@drawable/calendar"-->
+<!--                        android:drawablePadding="12dp"-->
+<!--                        android:hint="Select date"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:textColor="#111827"-->
+<!--                        android:textColorHint="#9CA3AF"/>-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="110dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="12dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Age"-->
+<!--                        android:textColor="#111827"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold"/>-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/etAge"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="38dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:background="@drawable/edit_bg_disabled"-->
+<!--                        android:enabled="false"-->
+<!--                        android:gravity="center"-->
+<!--                        android:hint="0"/>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; BLOCK &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Block *"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etBlock"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg"-->
+<!--                android:drawableStart="@drawable/building"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:hint="Enter block"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textColorHint="#9CA3AF"/>-->
+
+<!--            &lt;!&ndash; DIVISION &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Division"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg_disabled"-->
+<!--                android:drawableStart="@drawable/location"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:enabled="false"-->
+<!--                android:text="Secunderabad"-->
+<!--                android:textColor="#6B7280"/>-->
+
+<!--            &lt;!&ndash; DISTRICT &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="District"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg_disabled"-->
+<!--                android:drawableStart="@drawable/location"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:enabled="false"-->
+<!--                android:text="Hyderabad"-->
+<!--                android:textColor="#6B7280"/>-->
+
+<!--            &lt;!&ndash; ASSEMBLY &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Assembly Constituency"-->
+<!--                android:textColor="#111827"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="5dp"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:background="@drawable/edit_bg_disabled"-->
+<!--                android:drawableStart="@drawable/location"-->
+<!--                android:drawablePadding="12dp"-->
+<!--                android:enabled="false"-->
+<!--                android:text="Secunderabad Cantonment"-->
+<!--                android:textColor="#6B7280"/>-->
+
+<!--            &lt;!&ndash; NEXT BUTTON &ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/btnNext"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:backgroundTint="#0047BB"-->
+<!--                android:text="Next  →"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold"/>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--</ScrollView>-->

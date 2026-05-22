@@ -23,13 +23,11 @@ public class Add_Member_Activity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
 
-        // Open First Fragment
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameContainer, new FirstStep_Fragment())
                 .commit();
 
-        // Back Button
         btnBack.setOnClickListener(v -> onBackPressed());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
