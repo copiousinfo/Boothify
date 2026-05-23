@@ -1,11 +1,353 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UiActivity.ReportsActivity">
+    android:orientation="vertical"
+    android:background="#F1F5F9">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- ══ HEADER ══ -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1E3A8A"
+        android:paddingTop="40dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <!-- Back + Title -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:id="@+id/btnReportBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="←"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:paddingEnd="12dp"
+                android:onClick="onBackPressed"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="📊 Member Reports"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <!-- ══ STATS ROW ══ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Total -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/stat_card_bg"
+                android:padding="10dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:id="@+id/txtReportTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textColor="#CBD5E1"
+                    android:textSize="10sp"/>
+
+            </LinearLayout>
+
+            <!-- Today -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/stat_card_bg"
+                android:padding="10dp"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:id="@+id/txtReportToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#FFD700"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today"
+                    android:textColor="#CBD5E1"
+                    android:textSize="10sp"/>
+
+            </LinearLayout>
+
+            <!-- Month -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/stat_card_bg"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txtReportMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#86EFAC"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This Month"
+                    android:textColor="#CBD5E1"
+                    android:textSize="10sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ══ FILTER CARD ══ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp"
+                    android:background="#FFFFFF">
+
+                    <!-- Filter Title Row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="🔍  Filter Reports"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1E3A8A"/>
+
+                        <!-- Clear Filter Button -->
+                        <LinearLayout
+                            android:id="@+id/btnClearFilter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:background="@drawable/bg_clear_filter">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✕ Clear"
+                                android:textColor="#EF4444"
+                                android:textSize="12sp"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Date Row -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📅  Date Range"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <EditText
+                            android:id="@+id/etFromDate"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_weight="1"
+                            android:hint="From Date"
+                            android:textSize="12sp"
+                            android:textColor="#1F2937"
+                            android:textColorHint="#9CA3AF"
+                            android:background="@drawable/bg_filter_input"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginEnd="8dp"
+                            android:focusable="false"
+                            android:clickable="true"/>
+
+                        <EditText
+                            android:id="@+id/etToDate"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_weight="1"
+                            android:hint="To Date"
+                            android:textSize="12sp"
+                            android:textColor="#1F2937"
+                            android:textColorHint="#9CA3AF"
+                            android:background="@drawable/bg_filter_input"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:focusable="false"
+                            android:clickable="true"/>
+
+                    </LinearLayout>
+
+                    <!-- Area Filter Row -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📍  Area Filter"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Area Type Spinner -->
+                        <Spinner
+                            android:id="@+id/spAreaType"
+                            android:layout_width="120dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_filter_input"
+                            android:paddingStart="8dp"
+                            android:layout_marginEnd="8dp"/>
+
+                        <!-- Area Search -->
+                        <EditText
+                            android:id="@+id/etAreaSearch"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_weight="1"
+                            android:hint="Search area name..."
+                            android:textSize="12sp"
+                            android:textColor="#1F2937"
+                            android:textColorHint="#9CA3AF"
+                            android:background="@drawable/bg_filter_input"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:inputType="text"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ══ RESULT COUNT ══ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/txtFilterLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="All Members"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#374151"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Showing: "
+                    android:textSize="12sp"
+                    android:textColor="#6B7280"/>
+
+                <TextView
+                    android:id="@+id/txtFilteredCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#1E3A8A"/>
+
+            </LinearLayout>
+
+            <!-- ══ RECYCLER VIEW ══ -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerReports"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

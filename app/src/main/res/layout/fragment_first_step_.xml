@@ -21,9 +21,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <!-- ════════════════════════════ -->
-            <!-- STEP INDICATOR              -->
-            <!-- ════════════════════════════ -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,13 +92,10 @@
 
             </LinearLayout>
 
-            <!-- ════════════════════════════ -->
-            <!-- FULL NAME                   -->
-            <!-- ════════════════════════════ -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full Name *"
+                android:text="First Name *"
                 android:textColor="#111827"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -116,7 +110,34 @@
                 android:drawableStart="@drawable/profile_user"
                 android:drawablePadding="12dp"
                 android:gravity="center_vertical"
-                android:hint="Enter full name"
+                android:hint="Enter first name"
+                android:inputType="textPersonName"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#111827"
+                android:textColorHint="#9CA3AF"
+                android:textSize="15sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname *"
+                android:textColor="#111827"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/etSurname"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edit_bg"
+                android:drawableStart="@drawable/profile_user"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:hint="Enter surname name"
                 android:inputType="textPersonName"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"

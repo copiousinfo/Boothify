@@ -76,7 +76,7 @@ public class DashboardActivity extends AppCompatActivity {
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(DashboardActivity.this, ReportsActivity.class));
             }
         });
 
