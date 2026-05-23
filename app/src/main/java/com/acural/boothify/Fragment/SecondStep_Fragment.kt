@@ -15,39 +15,32 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.acural.boothify.R
+import com.acural.boothify.UiActivity.DashboardActivity
 import com.acural.boothify.model.MemberEntity
 import com.acural.boothify.roomdb.AppDatabase
 import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SecondStep_Fragment : Fragment() {
 
-    // Views
     private lateinit var etVoter: EditText
     private lateinit var etOccupation: EditText
     private lateinit var etOtherEducation: EditText
-
     private lateinit var spEducation: Spinner
-
     private lateinit var layoutCapture: LinearLayout
-
     private lateinit var btnSubmit: Button
     private lateinit var btnBack: Button
-
     private lateinit var imagePreview: ImageView
-
-    // SharedPref
     private lateinit var prefs: SharedPreferences
 
-    // Image
     private var imageByteArray: ByteArray? = null
-
-    // Education
+    private var savedImagePath: String = ""
     private var selectedEducation = ""
 
     companion object {
-
         const val CAMERA_REQUEST = 101
-
         const val GALLERY_REQUEST = 102
     }
 
@@ -56,425 +49,645 @@ class SecondStep_Fragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        return inflater.inflate(
-            R.layout.fragment_second_step_,
-            container,
-            false
-        )
+        return inflater.inflate(R.layout.fragment_second_step_, container, false)
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViews(view)
-
         setupEducationSpinner()
-
         setupImagePicker()
-
         setupButtons()
     }
 
+    // =========================
+    // INIT VIEWS
+    // =========================
     private fun initViews(view: View) {
-
-        etVoter = view.findViewById(R.id.etVoter)
-
+        etVoter      = view.findViewById(R.id.etVoter)
         etOccupation = view.findViewById(R.id.etOccupation)
-
-        spEducation = view.findViewById(R.id.spEducation)
-
+        spEducation  = view.findViewById(R.id.spEducation)
         layoutCapture = view.findViewById(R.id.layoutCapture)
+        btnSubmit    = view.findViewById(R.id.btnSubmit)
+        btnBack      = view.findViewById(R.id.btnBack)
 
-        btnSubmit = view.findViewById(R.id.btnSubmit)
-
-        btnBack = view.findViewById(R.id.btnBack)
-
-        // Create dynamically
+        // Dynamic EditText for custom qualification
         etOtherEducation = EditText(requireContext())
-
         etOtherEducation.hint = "Enter Qualification"
-
         etOtherEducation.visibility = View.GONE
-
         etOtherEducation.setBackgroundResource(R.drawable.edit_bg)
-
         etOtherEducation.setPadding(30, 20, 30, 20)
+        (spEducation.parent as LinearLayout).addView(etOtherEducation)
 
-        // Add dynamically below spinner
-        (spEducation.parent as LinearLayout)
-            .addView(etOtherEducation)
-
-        // Image Preview
+        // ✅ ImageView — MATCH_PARENT dono side
         imagePreview = ImageView(requireContext())
-
-        imagePreview.layoutParams =
-            LinearLayout.LayoutParams(
-                250,
-                250
-            )
-
-        imagePreview.scaleType =
-            ImageView.ScaleType.CENTER_CROP
-
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        imagePreview.layoutParams = params
+        imagePreview.scaleType = ImageView.ScaleType.CENTER_CROP
         imagePreview.visibility = View.GONE
-
         layoutCapture.addView(imagePreview)
 
-        prefs = requireActivity()
-            .getSharedPreferences(
-                "BoothifyPrefs",
-                Context.MODE_PRIVATE
-            )
+        prefs = requireActivity().getSharedPreferences("BoothifyPrefs", Context.MODE_PRIVATE)
     }
 
-    // ─────────────────────────────────────
+    // =========================
     // EDUCATION SPINNER
-    // ─────────────────────────────────────
+    // =========================
     private fun setupEducationSpinner() {
-
         val educationList = arrayListOf(
-
-            "Select Qualification",
-
-            "10th",
-
-            "12th",
-
-            "Graduate",
-
-            "PG",
-
-            "Any Other"
+            "Select Qualification", "10th", "12th",
+            "Graduate", "PG", "Any Other"
         )
 
-        val adapter = ArrayAdapter(
+        val adapter = object : ArrayAdapter<String>(
             requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
+            android.R.layout.simple_spinner_item,
             educationList
-        )
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = super.getView(position, convertView, parent)
+                val text = v.findViewById<TextView>(android.R.id.text1)
+                text.setTextColor(android.graphics.Color.BLACK)
+                text.textSize = 14f
+                text.setPadding(8, 0, 8, 0)
+                return v
+            }
 
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = super.getDropDownView(position, convertView, parent)
+                val text = v.findViewById<TextView>(android.R.id.text1)
+                text.setTextColor(android.graphics.Color.BLACK)
+                text.setBackgroundColor(android.graphics.Color.WHITE)
+                text.textSize = 14f
+                text.setPadding(24, 16, 24, 16)
+                return v
+            }
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spEducation.adapter = adapter
 
-        spEducation.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
+        spEducation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
+            ) {
+                (view as? TextView)?.setTextColor(android.graphics.Color.BLACK)
+                selectedEducation = educationList[position]
 
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-
-                    selectedEducation =
-                        educationList[position]
-
-                    if (selectedEducation == "Any Other") {
-
-                        etOtherEducation.visibility =
-                            View.VISIBLE
-
-                    } else {
-
-                        etOtherEducation.visibility =
-                            View.GONE
-                    }
-                }
-
-                override fun onNothingSelected(
-                    parent: AdapterView<*>?
-                ) {
-
+                if (selectedEducation == "Any Other") {
+                    showQualificationDialog()
+                } else {
+                    etOtherEducation.visibility = View.GONE
                 }
             }
-    }
 
-    // ─────────────────────────────────────
-    // IMAGE PICKER
-    // ─────────────────────────────────────
-    private fun setupImagePicker() {
-
-        layoutCapture.setOnClickListener {
-
-            val options = arrayOf(
-
-                "Camera",
-
-                "Gallery"
-            )
-
-            android.app.AlertDialog.Builder(
-                requireContext()
-            )
-                .setTitle("Choose Image")
-                .setItems(options) { _, which ->
-
-                    if (which == 0) {
-
-                        val intent = Intent(
-                            MediaStore.ACTION_IMAGE_CAPTURE
-                        )
-
-                        startActivityForResult(
-                            intent,
-                            CAMERA_REQUEST
-                        )
-
-                    } else {
-
-                        val intent = Intent(
-                            Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        )
-
-                        startActivityForResult(
-                            intent,
-                            GALLERY_REQUEST
-                        )
-                    }
-                }
-                .show()
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    // ─────────────────────────────────────
-    // IMAGE RESULT
-    // ─────────────────────────────────────
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
+    // =========================
+    // QUALIFICATION DIALOG
+    // =========================
+    private fun showQualificationDialog() {
+        val ctx = requireContext()
 
-        super.onActivityResult(
-            requestCode,
-            resultCode,
-            data
+        val root = LinearLayout(ctx)
+        root.orientation = LinearLayout.VERTICAL
+        root.setBackgroundColor(android.graphics.Color.WHITE)
+
+        // Header
+        val header = LinearLayout(ctx)
+        header.orientation = LinearLayout.VERTICAL
+        header.gravity = android.view.Gravity.CENTER
+        header.setBackgroundColor(android.graphics.Color.parseColor("#1E3A5F"))
+        header.setPadding(40, 50, 40, 50)
+
+        val icon = TextView(ctx)
+        icon.text = "🎓"
+        icon.textSize = 36f
+        icon.gravity = android.view.Gravity.CENTER
+
+        val title = TextView(ctx)
+        title.text = "Enter Qualification"
+        title.setTextColor(android.graphics.Color.parseColor("#FFD700"))
+        title.textSize = 18f
+        title.typeface = android.graphics.Typeface.DEFAULT_BOLD
+        title.gravity = android.view.Gravity.CENTER
+        val titleParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        titleParams.topMargin = 12
+        title.layoutParams = titleParams
+
+        val subtitle = TextView(ctx)
+        subtitle.text = "Type your custom qualification below"
+        subtitle.setTextColor(android.graphics.Color.parseColor("#94A3B8"))
+        subtitle.textSize = 12f
+        subtitle.gravity = android.view.Gravity.CENTER
+        val subParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        subParams.topMargin = 6
+        subtitle.layoutParams = subParams
+
+        header.addView(icon)
+        header.addView(title, titleParams)
+        header.addView(subtitle, subParams)
+
+        // Gold Divider
+        val divider = android.view.View(ctx)
+        divider.setBackgroundColor(android.graphics.Color.parseColor("#FFD700"))
+        divider.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 4
         )
 
-        if (resultCode == Activity.RESULT_OK) {
+        // Body
+        val body = LinearLayout(ctx)
+        body.orientation = LinearLayout.VERTICAL
+        body.setPadding(60, 50, 60, 30)
 
-            if (requestCode == CAMERA_REQUEST) {
+        val inputLabel = TextView(ctx)
+        inputLabel.text = "QUALIFICATION"
+        inputLabel.textSize = 10f
+        inputLabel.setTextColor(android.graphics.Color.parseColor("#9CA3AF"))
+        inputLabel.typeface = android.graphics.Typeface.DEFAULT_BOLD
+        inputLabel.letterSpacing = 0.1f
 
-                val bitmap =
-                    data?.extras?.get("data") as Bitmap
+        val editText = EditText(ctx)
+        editText.hint = "e.g. B.Tech, MBA, PhD..."
+        editText.setHintTextColor(android.graphics.Color.parseColor("#9CA3AF"))
+        editText.setTextColor(android.graphics.Color.parseColor("#1F2937"))
+        editText.textSize = 15f
+        editText.typeface = android.graphics.Typeface.DEFAULT_BOLD
+        editText.setPadding(30, 30, 30, 30)
+        editText.setBackgroundResource(android.R.drawable.edit_text)
+        val editParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        editParams.topMargin = 12
 
-                imagePreview.visibility = View.VISIBLE
+        body.addView(inputLabel)
+        body.addView(editText, editParams)
 
-                imagePreview.setImageBitmap(bitmap)
+        // Button Row
+        val btnRow = LinearLayout(ctx)
+        btnRow.orientation = LinearLayout.HORIZONTAL
+        btnRow.gravity = android.view.Gravity.END
+        btnRow.setPadding(40, 20, 40, 40)
 
-                imageByteArray =
-                    bitmapToByteArray(bitmap)
+        val btnCancel = Button(ctx)
+        btnCancel.text = "Cancel"
+        btnCancel.setTextColor(android.graphics.Color.parseColor("#6B7280"))
+        btnCancel.isAllCaps = false
+        btnCancel.background = null
+        btnCancel.textSize = 14f
+        btnCancel.typeface = android.graphics.Typeface.DEFAULT_BOLD
+
+        val btnSave = Button(ctx)
+        btnSave.text = "Save"
+        btnSave.setTextColor(android.graphics.Color.WHITE)
+        btnSave.isAllCaps = false
+        btnSave.textSize = 14f
+        btnSave.typeface = android.graphics.Typeface.DEFAULT_BOLD
+        val saveBg = android.graphics.drawable.GradientDrawable()
+        saveBg.shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+        saveBg.cornerRadius = 20f
+        saveBg.setColor(android.graphics.Color.parseColor("#1E3A5F"))
+        btnSave.background = saveBg
+        val saveParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        btnSave.setPadding(60, 16, 60, 16)
+
+        btnRow.addView(btnCancel)
+        btnRow.addView(btnSave, saveParams)
+
+        root.addView(header)
+        root.addView(divider)
+        root.addView(body)
+        root.addView(btnRow)
+
+        val dialog = android.app.AlertDialog.Builder(ctx)
+            .setView(root)
+            .create()
+
+        dialog.window?.setBackgroundDrawable(
+            android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT)
+        )
+        dialog.window?.setLayout(
+            (ctx.resources.displayMetrics.widthPixels * 0.92).toInt(),
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        dialog.setCancelable(false)
+
+        btnCancel.setOnClickListener {
+            spEducation.setSelection(0)
+            selectedEducation = ""
+            dialog.dismiss()
+        }
+
+        btnSave.setOnClickListener {
+            val input = editText.text.toString().trim()
+            if (input.isEmpty()) {
+                editText.error = "Please enter qualification"
+            } else {
+                selectedEducation = input
+                Toast.makeText(ctx, "Qualification: $input", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             }
+        }
 
-            else if (requestCode == GALLERY_REQUEST) {
+        dialog.show()
+    }
 
-                val uri: Uri? = data?.data
-
-                val bitmap =
-                    MediaStore.Images.Media.getBitmap(
-                        requireActivity().contentResolver,
-                        uri
+    // =========================
+    // IMAGE PICKER DIALOG
+    // =========================
+    private fun showImagePickerDialog() {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Choose Image")
+            .setItems(arrayOf("Camera", "Gallery")) { _, which ->
+                if (which == 0) {
+                    startActivityForResult(
+                        Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                        CAMERA_REQUEST
                     )
-
-                imagePreview.visibility = View.VISIBLE
-
-                imagePreview.setImageBitmap(bitmap)
-
-                imageByteArray =
-                    bitmapToByteArray(bitmap)
+                } else {
+                    startActivityForResult(
+                        Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI),
+                        GALLERY_REQUEST
+                    )
+                }
             }
+            .show()
+    }
+
+    private fun setupImagePicker() {
+        layoutCapture.setOnClickListener {
+            showImagePickerDialog()
         }
     }
 
-    // ─────────────────────────────────────
-    // BITMAP TO BYTE ARRAY
-    // ─────────────────────────────────────
-    private fun bitmapToByteArray(
-        bitmap: Bitmap
-    ): ByteArray {
+    // =========================
+    // IMAGE RESULT
+    // =========================
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        val stream =
-            ByteArrayOutputStream()
+        if (resultCode != Activity.RESULT_OK) return
 
-        bitmap.compress(
-            Bitmap.CompressFormat.JPEG,
-            70,
-            stream
+        try {
+            val bitmap: Bitmap? = when (requestCode) {
+
+                CAMERA_REQUEST -> {
+                    // ✅ Camera thumbnail — scale up karo
+                    val raw = data?.extras?.get("data") as? Bitmap
+                    raw?.let { cropToSquare(it) }
+                }
+
+                GALLERY_REQUEST -> {
+                    // ✅ Gallery — InputStream se load karo
+                    val uri = data?.data
+                    uri?.let {
+                        val inputStream = requireActivity().contentResolver.openInputStream(it)
+                        val raw = BitmapFactory.decodeStream(inputStream)
+                        inputStream?.close()
+                        cropToSquare(raw)
+                    }
+                }
+
+                else -> null
+            }
+
+            if (bitmap != null) {
+                // ✅ 600x600 resize
+                val finalBitmap = Bitmap.createScaledBitmap(bitmap, 600, 600, true)
+
+                // ✅ Storage mein save karo
+                savedImagePath = saveImageToStorage(finalBitmap)
+                imageByteArray = bitmapToByteArray(finalBitmap)
+
+                // ✅ Preview dikhao — puri box fill
+                setImagePreview(finalBitmap)
+
+            } else {
+                Toast.makeText(requireContext(), "Image load failed", Toast.LENGTH_SHORT).show()
+            }
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // ✅ Square crop center se
+    private fun cropToSquare(bitmap: Bitmap): Bitmap {
+        val w = bitmap.width
+        val h = bitmap.height
+        val size = minOf(w, h)
+        val x = (w - size) / 2
+        val y = (h - size) / 2
+        return Bitmap.createBitmap(bitmap, x, y, size, size)
+    }
+
+    // ✅ Preview set karo — puri layoutCapture fill ho
+    private fun setImagePreview(bitmap: Bitmap) {
+        // Pehle sab children hata do
+        layoutCapture.removeAllViews()
+
+        val imgView = ImageView(requireContext())
+        imgView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
         )
+        imgView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imgView.setImageBitmap(bitmap)
 
+        // ✅ Tap karke image change kar sako
+        imgView.setOnClickListener {
+            showImagePickerDialog()
+        }
+
+        layoutCapture.addView(imgView)
+        imagePreview = imgView
+    }
+
+    // =========================
+    // SAVE IMAGE TO STORAGE
+    // =========================
+    private fun saveImageToStorage(bitmap: Bitmap): String {
+        val filename = "member_${System.currentTimeMillis()}.jpg"
+        val file = java.io.File(requireContext().filesDir, filename)
+        FileOutputStream(file).use { stream ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
+            stream.flush()
+        }
+        return file.absolutePath
+    }
+
+    // =========================
+    // BITMAP TO BYTE ARRAY
+    // =========================
+    private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream)
         return stream.toByteArray()
     }
 
-    // ─────────────────────────────────────
+    // =========================
+    // GENERATE MEMBER ID
+    // =========================
+    private fun generateMemberId(): String {
+        val db = AppDatabase.getInstance(requireContext())
+        var memberId: String
+        do {
+            memberId = (1000..9999).random().toString()
+        } while (db.memberDao().checkMemberId(memberId) > 0)
+        return memberId
+    }
+
+    // =========================
     // BUTTONS
-    // ─────────────────────────────────────
+    // =========================
     private fun setupButtons() {
-
         btnBack.setOnClickListener {
-
-            requireActivity()
-                .onBackPressedDispatcher
-                .onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
         btnSubmit.setOnClickListener {
-
             saveMember()
         }
     }
 
-    // ─────────────────────────────────────
+    // =========================
     // SAVE MEMBER
-    // ─────────────────────────────────────
+    // =========================
     private fun saveMember() {
 
-        val voter =
-            etVoter.text.toString().trim()
-
-        val occupation =
-            etOccupation.text.toString().trim()
+        val voter = etVoter.text.toString().trim()
+        val occupation = etOccupation.text.toString().trim()
 
         if (voter.isEmpty()) {
-
-            etVoter.error =
-                "Enter voter ID"
-
+            etVoter.error = "Enter voter ID"
             return
         }
 
         if (occupation.isEmpty()) {
-
-            etOccupation.error =
-                "Enter occupation"
-
+            etOccupation.error = "Enter occupation"
             return
         }
 
-        if (selectedEducation ==
-            "Select Qualification"
-        ) {
-
-            Toast.makeText(
-                requireContext(),
-                "Select qualification",
-                Toast.LENGTH_SHORT
-            ).show()
-
+        if (selectedEducation == "Select Qualification" || selectedEducation.isEmpty()) {
+            Toast.makeText(requireContext(), "Select qualification", Toast.LENGTH_SHORT).show()
             return
         }
 
-        var finalEducation =
-            selectedEducation
-
-        if (selectedEducation ==
-            "Any Other"
-        ) {
-
-            finalEducation =
-                etOtherEducation.text
-                    .toString()
-                    .trim()
-
-            if (finalEducation.isEmpty()) {
-
-                etOtherEducation.error =
-                    "Enter qualification"
-
-                return
-            }
-        }
-
-        if (imageByteArray == null) {
-
-            Toast.makeText(
-                requireContext(),
-                "Select image",
-                Toast.LENGTH_SHORT
-            ).show()
-
+        if (savedImagePath.isEmpty()) {
+            Toast.makeText(requireContext(), "Please select image", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Room DB
-        val db =
-            AppDatabase.getInstance(
-                requireContext()
-            )
+        // ✅ isExistingMember bundle se lo
+        val isExisting = arguments?.getBoolean("isExistingMember", false) ?: false
 
-        val member =
-            MemberEntity()
+        val db = AppDatabase.getInstance(requireContext())
+        val member = MemberEntity()
 
-        // First Fragment Data
-        member.name =
-            prefs.getString("name", "")!!
+        member.memberId = generateMemberId()
 
-        member.mobile =
-            prefs.getString("mobile", "")!!
+        // ✅ Full datetime store karo — date + time dono
+        member.createdDateTime = SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss",
+            Locale.US
+        ).format(Date())
 
-        member.father =
-            prefs.getString("father", "")!!
-
-        member.gender =
-            prefs.getString("gender", "")!!
-
-        member.dob =
-            prefs.getString("dob", "")!!
-
-        member.age =
-            prefs.getString("age", "")!!
-
-        member.block =
-            prefs.getString("block", "")!!
-
-        member.division =
-            prefs.getString("division", "")!!
-
-        member.district =
-            prefs.getString("district", "")!!
-
-        member.assembly =
-            prefs.getString("assembly", "")!!
-
-        // Second Fragment Data
-        member.voterId = voter
-
+        member.name      = prefs.getString("name", "")!!
+        member.mobile    = prefs.getString("mobile", "")!!
+        member.father    = prefs.getString("father", "")!!
+        member.gender    = prefs.getString("gender", "")!!
+        member.dob       = prefs.getString("dob", "")!!
+        member.age       = prefs.getString("age", "")!!
+        member.block     = prefs.getString("block", "")!!
+        member.division  = prefs.getString("division", "")!!
+        member.district  = prefs.getString("district", "")!!
+        member.assembly  = prefs.getString("assembly", "")!!
+        member.voterId   = voter
         member.occupation = occupation
+        member.education = selectedEducation
+        member.imagePath = savedImagePath
 
-        member.education = finalEducation
+        // ✅ Existing member flag set karo
+        member.isExistingMember = if (isExisting) 1 else 0
 
-//        member.image = imageByteArray
-
-        // Save
         db.memberDao().insert(member)
 
-        Toast.makeText(
-            requireContext(),
-            "Member Saved Successfully",
-            Toast.LENGTH_LONG
-        ).show()
+        // Success dialog same rahega...
+        val dialogView = layoutInflater.inflate(R.layout.success_dialog, null)
+        val dialog = android.app.AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
 
-        clearForm()
+        dialog.window?.setBackgroundDrawable(
+            android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT)
+        )
+
+        val btnOk = dialogView.findViewById<Button>(R.id.btnOk)
+        btnOk.setOnClickListener {
+            dialog.dismiss()
+            val intent = Intent(requireContext(), DashboardActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            requireActivity().finishAffinity()
+        }
+
+        dialog.show()
     }
+//    private fun saveMember() {
+//
+//        val voter = etVoter.text.toString().trim()
+//        val occupation = etOccupation.text.toString().trim()
+//
+//        if (voter.isEmpty()) {
+//            etVoter.error = "Enter voter ID"
+//            return
+//        }
+//
+//        if (occupation.isEmpty()) {
+//            etOccupation.error = "Enter occupation"
+//            return
+//        }
+//
+//        if (selectedEducation == "Select Qualification" ||
+//            selectedEducation.isEmpty()
+//        ) {
+//
+//            Toast.makeText(
+//                requireContext(),
+//                "Select qualification",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//
+//            return
+//        }
+//
+//        if (savedImagePath.isEmpty()) {
+//
+//            Toast.makeText(
+//                requireContext(),
+//                "Please select image",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//
+//            return
+//        }
+//
+//        val db = AppDatabase.getInstance(requireContext())
+//
+//        val member = MemberEntity()
+//
+//        member.memberId =
+//            generateMemberId()
+//
+//        member.createdDateTime =
+//            SimpleDateFormat(
+//                "yyyy-MM-dd",
+//                Locale.US
+//            ).format(Date())
+//
+//        member.name =
+//            prefs.getString("name", "")!!
+//
+//        member.mobile =
+//            prefs.getString("mobile", "")!!
+//
+//        member.father =
+//            prefs.getString("father", "")!!
+//
+//        member.gender =
+//            prefs.getString("gender", "")!!
+//
+//        member.dob =
+//            prefs.getString("dob", "")!!
+//
+//        member.age =
+//            prefs.getString("age", "")!!
+//
+//        member.block =
+//            prefs.getString("block", "")!!
+//
+//        member.division =
+//            prefs.getString("division", "")!!
+//
+//        member.district =
+//            prefs.getString("district", "")!!
+//
+//        member.assembly =
+//            prefs.getString("assembly", "")!!
+//
+//        member.voterId = voter
+//
+//        member.occupation = occupation
+//
+//        member.education = selectedEducation
+//
+//        member.imagePath = savedImagePath
+//
+//        db.memberDao().insert(member)
+//
+//        // =========================
+//        // SUCCESS DIALOG
+//        // =========================
+//
+//        val dialogView = layoutInflater.inflate(
+//            R.layout.success_dialog,
+//            null
+//        )
+//
+//        val dialog = android.app.AlertDialog.Builder(requireContext())
+//            .setView(dialogView)
+//            .setCancelable(false)
+//            .create()
+//
+//        dialog.window?.setBackgroundDrawable(
+//            android.graphics.drawable.ColorDrawable(
+//                android.graphics.Color.TRANSPARENT
+//            )
+//        )
+//
+//        val btnOk =
+//            dialogView.findViewById<Button>(R.id.btnOk)
+//
+//        btnOk.setOnClickListener {
+//
+//            dialog.dismiss()
+//
+//            val intent = Intent(
+//                requireContext(),
+//                DashboardActivity::class.java
+//            )
+//
+//            // ✅ Clear complete backstack
+//            intent.flags =
+//                Intent.FLAG_ACTIVITY_NEW_TASK or
+//                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+//                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+//
+//            startActivity(intent)
+//
+//            requireActivity().finishAffinity()
+//        }
+//
+//        dialog.show()
+//    }
 
-    private fun clearForm() {
-
-        etVoter.setText("")
-
-        etOccupation.setText("")
-
-        etOtherEducation.setText("")
-
-        spEducation.setSelection(0)
-
-        imagePreview.setImageBitmap(null)
-
-        imagePreview.visibility = View.GONE
-
-        imageByteArray = null
-    }
 }
+

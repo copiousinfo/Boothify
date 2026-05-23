@@ -161,6 +161,7 @@
                     android:id="@+id/spEducation"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
+                    android:paddingStart="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/edit_bg"/>
 
@@ -177,7 +178,7 @@
                 <LinearLayout
                     android:id="@+id/layoutCapture"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_capture"
                     android:gravity="center"

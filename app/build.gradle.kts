@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.acural.boothify"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -46,4 +46,11 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
 
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
+
+
+
+    implementation("androidx.work:work-runtime:2.11.2")
+    implementation("org.apache.poi:poi:5.2.3")
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
+    implementation("com.itextpdf:itextg:5.5.10")
 }

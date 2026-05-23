@@ -40,7 +40,7 @@ public class FirstStep_Fragment extends Fragment {
     private Button btnVerify, btnNext;
     private LinearLayout btnMale, btnFemale, btnOther;
 
-
+    private boolean isExistingMember = false;
     private String selectedGender = "";
     private boolean isMobileVerified = false;
 
@@ -222,6 +222,11 @@ public class FirstStep_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first_step_, container, false);
+
+        if (getArguments() != null) {
+            isExistingMember = getArguments().getBoolean("isExistingMember", false);
+        }
+
         initViews(view);
         setupMobileInput();
         setupOtpVerify();
@@ -801,22 +806,39 @@ public class FirstStep_Fragment extends Fragment {
     }
 
     // ── Next Button: Validate → Save SharedPrefs → Navigate ──
-    private void setupNextButton() {
-        btnNext.setOnClickListener(v -> {
-            if (!validateFields()) return;
+//    private void setupNextButton() {
+//        btnNext.setOnClickListener(v -> {
+//            if (!validateFields()) return;
+//
+//            saveToSharedPrefs();
+////            navigateToNextFragment();
+//            requireActivity()
+//                    .getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.frameContainer,
+//                            new SecondStep_Fragment())
+//                    .addToBackStack(null)
+//                    .commit();
+//        });
+//    }
+private void setupNextButton() {
+    btnNext.setOnClickListener(v -> {
+        if (!validateFields()) return;
+        saveToSharedPrefs();
 
-            saveToSharedPrefs();
-//            navigateToNextFragment();
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frameContainer,
-                            new SecondStep_Fragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
-    }
+        SecondStep_Fragment secondFragment = new SecondStep_Fragment();
+        Bundle args = new Bundle();
+        args.putBoolean("isExistingMember", isExistingMember);
+        secondFragment.setArguments(args);
 
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameContainer, secondFragment)
+                .addToBackStack(null)
+                .commit();
+    });
+}
     private boolean validateFields() {
         String name   = etName.getText().toString().trim();
         String mobile = etMobile.getText().toString().trim();
@@ -873,6 +895,7 @@ public class FirstStep_Fragment extends Fragment {
                 .putString("division", etDivision.getText().toString().trim())
                 .putString("district", etDistrict.getText().toString().trim())
                 .putString("assembly", etAssembly.getText().toString().trim())
+                .putBoolean("isExistingMember", isExistingMember)
                 .apply();
     }
 

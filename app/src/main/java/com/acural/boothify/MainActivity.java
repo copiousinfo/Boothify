@@ -103,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // ================= USER 1 =================
 
-            if (mobile.equals("9958596363")
+
+            if (mobile.equals("9999116953")
                     && password.equals("1234")) {
 
                 saveUserData(
@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 openDashboard();
             }
 
-            // ================= USER 2 =================
 
-            else if (mobile.equals("9876543210")
+
+            else if (mobile.equals("96257 95930")
                     && password.equals("4321")) {
 
                 saveUserData(
@@ -134,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
                 openDashboard();
             }
-
-            // ================= INVALID LOGIN =================
 
             else {
 

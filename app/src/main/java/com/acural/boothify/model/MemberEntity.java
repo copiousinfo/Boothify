@@ -9,7 +9,13 @@ public class MemberEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    // First Fragment
+    public String memberId;
+
+    public String createdDateTime;
+    public int isExistingMember;
+    public String partyRole;
+
+
     public String name;
     public String mobile;
     public String father;
