@@ -34,8 +34,7 @@ import java.util.Map;
 
 public class FirstStep_Fragment extends Fragment {
 
-    // Views
-    private EditText etName, etMobile, etFather, etDob, etAge, etBlock;
+    private EditText etName,etSurname, etMobile, etFather, etDob, etAge, etBlock;
     private EditText etDivision, etDistrict, etAssembly;
     private Button btnVerify, btnNext;
     private LinearLayout btnMale, btnFemale, btnOther;
@@ -48,130 +47,170 @@ public class FirstStep_Fragment extends Fragment {
 
     private static class AreaInfo {
         String division, district, assembly;
-        AreaInfo(String d, String di, String a) { division = d; district = di; assembly = a; }
+
+        AreaInfo(String d, String di, String a) {
+            division = d;
+            district = di;
+            assembly = a;
+        }
     }
 
     private static final Map<String, AreaInfo> BLOCK_MAP = new HashMap<>();
 
     static {
-        // SAGAR Division
         String[] bina = {"Bina", "Khimlasa", "Bina City"};
-        for (String b : bina) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Bina"));
+        for (String b : bina)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Bina"));
 
         String[] khurai = {"Khurai Rural", "Malthone", "Khurai", "Bandri"};
-        for (String b : khurai) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Khurai"));
+        for (String b : khurai)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Khurai"));
 
         String[] surkhi = {"Jaisinhnagar", "Rahatgarh", "Surkhi", "Baleta"};
-        for (String b : surkhi) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Surkhi"));
+        for (String b : surkhi)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Surkhi"));
 
         String[] deori = {"Deori", "Kesli", "Gaurjhamar", "Maharajpur"};
-        for (String b : deori) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Deori"));
+        for (String b : deori)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Deori"));
 
         String[] rehli = {"Rehli", "Garhakota", "Shahpur", "Baleh", "Dhana"};
-        for (String b : rehli) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Rehli"));
+        for (String b : rehli)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Rehli"));
 
         String[] naryawali = {"Sagar Rural", "Naryawali", "Makronia", "Sagar Cantt"};
-        for (String b : naryawali) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Naryawali"));
+        for (String b : naryawali)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Naryawali"));
 
         String[] sagarCity = {"Sagar Civil Line", "Civil Line", "Katra", "Bada Bazar"};
-        for (String b : sagarCity) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Sagar City"));
+        for (String b : sagarCity)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Sagar City"));
 
         String[] banda = {"Shahgarh", "Banda", "Dhamoni"};
-        for (String b : banda) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Banda"));
+        for (String b : banda)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Sagar", "Banda"));
 
         // Tikamgarh District
         String[] tikamgarh = {"Tikamgarh", "Badagaon", "Mawai"};
-        for (String b : tikamgarh) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Tikamgarh"));
+        for (String b : tikamgarh)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Tikamgarh"));
 
         String[] jatara = {"Jatara", "Lidhora", "Chandera", "Bamhorikala"};
-        for (String b : jatara) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Jatara"));
+        for (String b : jatara)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Jatara"));
 
         String[] khargapur = {"Palera", "Deri", "Khargapur", "Baldeogarh"};
-        for (String b : khargapur) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Khargapur"));
+        for (String b : khargapur)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Tikamgarh", "Khargapur"));
 
         // Niwari District
         String[] prithvipur = {"Prithvipur", "Jeron", "Digoda", "Mohangarh"};
-        for (String b : prithvipur) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Niwari", "Prithvipur"));
+        for (String b : prithvipur)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Niwari", "Prithvipur"));
 
         String[] niwari = {"Niwari", "Orchha", "Tarichar"};
-        for (String b : niwari) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Niwari", "Niwari"));
+        for (String b : niwari)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Niwari", "Niwari"));
 
         // Chhatarpur District
         String[] maharajpur = {"Nowgong", "Maharajpur", "Lugasi", "Harpalpur"};
-        for (String b : maharajpur) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Maharajpur"));
+        for (String b : maharajpur)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Maharajpur"));
 
         String[] chandla = {"Chandla", "Gaurihar", "Barigarh", "Bachhon", "Sarwai"};
-        for (String b : chandla) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Chandla"));
+        for (String b : chandla)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Chandla"));
 
         String[] rajnagar = {"Rajnagar", "Lavkush Nagar", "Chand Nagar", "Vikrampur"};
-        for (String b : rajnagar) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Rajnagar"));
+        for (String b : rajnagar)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Rajnagar"));
 
         String[] chhatarpur = {"Mahewa", "Padariya", "East Chhatarpur", "West Chhatarpur", "Central Chhatarpur"};
-        for (String b : chhatarpur) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Chhatarpur"));
+        for (String b : chhatarpur)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Chhatarpur"));
 
         String[] bijawar = {"Bijawar", "Matguwan", "Ishanagar", "Kishangarh", "Satai"};
-        for (String b : bijawar) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Bijawar"));
+        for (String b : bijawar)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Bijawar"));
 
         String[] badaMalhara = {"Bada Malhara", "Bakswaha", "Guhara"};
-        for (String b : badaMalhara) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Bada Malhara"));
+        for (String b : badaMalhara)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Chhatarpur", "Bada Malhara"));
 
         // Damoh District
         String[] pathariya = {"Pathariya", "Batiyagarh", "Narsinghgarh"};
-        for (String b : pathariya) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Pathariya"));
+        for (String b : pathariya)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Pathariya"));
 
         String[] damoh = {"Damoh Rural", "Imliya Ghat", "Bandakpur"};
-        for (String b : damoh) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Damoh"));
+        for (String b : damoh)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Damoh"));
 
         String[] jabera = {"Jabera", "Tendukheda", "Nohta", "Tejgarh"};
-        for (String b : jabera) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Jabera"));
+        for (String b : jabera)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Jabera"));
 
         String[] hatta = {"Hatta", "Patera", "Hindoriya", "Gaisabad"};
-        for (String b : hatta) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Hatta"));
+        for (String b : hatta)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Damoh", "Hatta"));
 
         // Panna District
         String[] pawai = {"Shahnagar", "Raipura", "Pawai", "Simariya"};
-        for (String b : pawai) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Pawai"));
+        for (String b : pawai)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Pawai"));
 
         String[] gunnaur = {"Amanganj", "Devendranagar"};
-        for (String b : gunnaur) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Gunnaur"));
+        for (String b : gunnaur)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Gunnaur"));
 
         String[] panna = {"Ajaigarh", "Dharampur", "Panna"};
-        for (String b : panna) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Panna"));
+        for (String b : panna)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("SAGAR", "Panna", "Panna"));
 
         // ── REWA Division ──
 
         // Satna District
         String[] chitrakoot = {"Baroundha", "Majhgawan", "Virsinghpur"};
-        for (String b : chitrakoot) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Chitrakoot"));
+        for (String b : chitrakoot)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Chitrakoot"));
 
         String[] raigaon = {"Singhpur", "Sohawal", "Kothi"};
-        for (String b : raigaon) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Raigaon"));
+        for (String b : raigaon)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Raigaon"));
 
         String[] satna = {"Babupur", "Dhawari", "Satna City Block", "Nai Basti"};
-        for (String b : satna) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Satna"));
+        for (String b : satna)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Satna"));
 
         String[] nagod = {"Nagod", "Parsmania", "Unchehra"};
-        for (String b : nagod) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Nagod"));
+        for (String b : nagod)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Nagod"));
 
         String[] rampurBaghelan = {"Rampur Baghelan", "Baila", "Chaurhata", "Kotar"};
-        for (String b : rampurBaghelan) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Rampur Baghelan"));
+        for (String b : rampurBaghelan)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Satna", "Rampur Baghelan"));
 
         // Maihar District
         String[] maihar = {"Maihar", "Amdara", "Badera", "Nadan"};
-        for (String b : maihar) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Maihar", "Maihar"));
+        for (String b : maihar)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Maihar", "Maihar"));
 
         String[] amarpatan = {"Ramnagar", "Amarpatan", "Tala"};
-        for (String b : amarpatan) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Maihar", "Amarpatan"));
+        for (String b : amarpatan)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Maihar", "Amarpatan"));
 
         // Rewa District
         String[] sirmour = {"Sirmour", "Jawa", "Dabhoura"};
-        for (String b : sirmour) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Sirmour"));
+        for (String b : sirmour)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Sirmour"));
 
         String[] teonthar = {"Teonthar", "Garhi", "Chakghat"};
-        for (String b : teonthar) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Teonthar"));
+        for (String b : teonthar)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Teonthar"));
 
         String[] mangawan = {"Gangew"};
-        for (String b : mangawan) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Mangawan"));
+        for (String b : mangawan)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Mangawan"));
 
         String[] gurh = {"Gurh", "Govindgarh", "Rampur Karchuliyan"};
         for (String b : gurh) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Gurh"));
@@ -181,41 +220,52 @@ public class FirstStep_Fragment extends Fragment {
 
         // Sidhi District
         String[] churhat = {"Rampur Naikin", "Churhat", "Hanumangarh"};
-        for (String b : churhat) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Churhat"));
+        for (String b : churhat)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Churhat"));
 
         String[] sidhi = {"Sidhi City", "Semariya", "Kuchwahi", "Barambaba"};
-        for (String b : sidhi) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Sidhi"));
+        for (String b : sidhi)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Sidhi"));
 
         String[] sihawal = {"Sihawal", "Bahri"};
-        for (String b : sihawal) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Sihawal"));
+        for (String b : sihawal)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Sihawal"));
 
         String[] dhauhani = {"Majhauli", "Kusmi", "Madwas", "Mahuagaon"};
-        for (String b : dhauhani) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Dhauhani"));
+        for (String b : dhauhani)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Sidhi", "Dhauhani"));
 
         // Mauganj District
         String[] mauganj = {"Mauganj", "Khatkhari", "Hanumana"};
-        for (String b : mauganj) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Mauganj"));
+        for (String b : mauganj)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Mauganj"));
 
         String[] deotalab = {"Naigarhi", "Deotalab", "Ragurajgarh"};
-        for (String b : deotalab) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Deotalab"));
+        for (String b : deotalab)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Deotalab"));
 
         String[] chitrangi = {"Chitrangi", "Bairadah", "Karela", "Bagdara"};
-        for (String b : chitrangi) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Chitrangi"));
+        for (String b : chitrangi)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Mauganj", "Chitrangi"));
 
         // Singrauli District
         String[] singrauli = {"Baidhan", "Nava Nagar", "Shasan", "Hirwah", "Morwa"};
-        for (String b : singrauli) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Singrauli", "Singrauli"));
+        for (String b : singrauli)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Singrauli", "Singrauli"));
 
         String[] devsar = {"Devsar", "Sarai", "Bargawan", "Langhadol", "Khutar", "Manda"};
-        for (String b : devsar) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Singrauli", "Devsar"));
+        for (String b : devsar)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Singrauli", "Devsar"));
 
         // Semariya
         String[] semariya = {"Semariya", "Shahpur", "Bankuiya", "Majhiyar"};
-        for (String b : semariya) BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Semariya"));
+        for (String b : semariya)
+            BLOCK_MAP.put(b.toLowerCase(), new AreaInfo("REWA", "Rewa", "Semariya"));
     }
 
     // ─────────────────────────────────────────
-    public FirstStep_Fragment() {}
+    public FirstStep_Fragment() {
+    }
 
     @Nullable
     @Override
@@ -238,20 +288,21 @@ public class FirstStep_Fragment extends Fragment {
     }
 
     private void initViews(View view) {
-        etName     = view.findViewById(R.id.etName);
-        etMobile   = view.findViewById(R.id.etMobile);
-        etFather   = view.findViewById(R.id.etFather);
-        etDob      = view.findViewById(R.id.etDob);
-        etAge      = view.findViewById(R.id.etAge);
-        etBlock    = view.findViewById(R.id.etBlock);
+        etName = view.findViewById(R.id.etName);
+        etMobile = view.findViewById(R.id.etMobile);
+        etFather = view.findViewById(R.id.etFather);
+        etDob = view.findViewById(R.id.etDob);
+        etAge = view.findViewById(R.id.etAge);
+        etBlock = view.findViewById(R.id.etBlock);
         etDivision = view.findViewById(R.id.etDivision);
         etDistrict = view.findViewById(R.id.etDistrict);
         etAssembly = view.findViewById(R.id.etAssembly);
-        btnVerify  = view.findViewById(R.id.btnVerify);
-        btnNext    = view.findViewById(R.id.btnNext);
-        btnMale    = view.findViewById(R.id.btnMale);
-        btnFemale  = view.findViewById(R.id.btnFemale);
-        btnOther   = view.findViewById(R.id.btnOther);
+        btnVerify = view.findViewById(R.id.btnVerify);
+        btnNext = view.findViewById(R.id.btnNext);
+        btnMale = view.findViewById(R.id.btnMale);
+        btnFemale = view.findViewById(R.id.btnFemale);
+        btnOther = view.findViewById(R.id.btnOther);
+        etSurname = view.findViewById(R.id.etSurname);
     }
 
     // ── Mobile: max 10 digits ──────────────────
@@ -288,9 +339,6 @@ public class FirstStep_Fragment extends Fragment {
         root.setBackground(bg);
 
 
-        // ─────────────────────────────────────────────
-        // TOP ICON
-        // ─────────────────────────────────────────────
         ImageView icon = new ImageView(requireContext());
 
         LinearLayout.LayoutParams iconParams =
@@ -544,6 +592,7 @@ public class FirstStep_Fragment extends Fragment {
 
         dialog.show();
     }
+
     private EditText createOtpBox() {
 
         EditText et = new EditText(requireContext());
@@ -582,6 +631,7 @@ public class FirstStep_Fragment extends Fragment {
 
         return et;
     }
+
     private void setupOtpBox(EditText current,
                              EditText previous,
                              EditText next,
@@ -618,9 +668,7 @@ public class FirstStep_Fragment extends Fragment {
 
                         next.requestFocus();
                     }
-                }
-
-                else if (s.length() == 0) {
+                } else if (s.length() == 0) {
 
                     if (previous != null) {
 
@@ -658,39 +706,6 @@ public class FirstStep_Fragment extends Fragment {
         });
     }
 
-//
-//    private void showOtpDialog(String mobile) {
-//        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireContext());
-//        builder.setTitle("OTP Verification");
-//        builder.setMessage("Enter OTP sent to +91-" + mobile);
-//
-//        final EditText otpInput = new EditText(requireContext());
-//        otpInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-//        otpInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
-//        otpInput.setHint("Enter 4-digit OTP");
-//        otpInput.setPadding(40, 20, 40, 20);
-//        builder.setView(otpInput);
-//
-//        builder.setPositiveButton("Verify", (dialog, which) -> {
-//            String otp = otpInput.getText().toString().trim();
-//            if (otp.equals("1234")) {
-//                isMobileVerified = true;
-//                btnVerify.setText("✓ Verified");
-//                btnVerify.setBackgroundTintList(
-//                        android.content.res.ColorStateList.valueOf(
-//                                android.graphics.Color.parseColor("#22C55E")));
-//                btnVerify.setEnabled(false);
-//                Toast.makeText(getContext(), "Mobile verified successfully!", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(getContext(), "Invalid OTP. Please try again.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        builder.setNegativeButton("Cancel", null);
-//        builder.show();
-//    }
-
-    // ── Gender Selection ───────────────────────
     private void setupGenderSelection() {
         btnMale.setOnClickListener(v -> selectGender("Male", btnMale, btnFemale, btnOther));
         btnFemale.setOnClickListener(v -> selectGender("Female", btnFemale, btnMale, btnOther));
@@ -764,8 +779,13 @@ public class FirstStep_Fragment extends Fragment {
     // ── Block → Auto-fill Division/District/Assembly ──
     private void setupBlockAutofill() {
         etBlock.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -805,50 +825,42 @@ public class FirstStep_Fragment extends Fragment {
         });
     }
 
-    // ── Next Button: Validate → Save SharedPrefs → Navigate ──
-//    private void setupNextButton() {
-//        btnNext.setOnClickListener(v -> {
-//            if (!validateFields()) return;
-//
-//            saveToSharedPrefs();
-////            navigateToNextFragment();
-//            requireActivity()
-//                    .getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.frameContainer,
-//                            new SecondStep_Fragment())
-//                    .addToBackStack(null)
-//                    .commit();
-//        });
-//    }
-private void setupNextButton() {
-    btnNext.setOnClickListener(v -> {
-        if (!validateFields()) return;
-        saveToSharedPrefs();
 
-        SecondStep_Fragment secondFragment = new SecondStep_Fragment();
-        Bundle args = new Bundle();
-        args.putBoolean("isExistingMember", isExistingMember);
-        secondFragment.setArguments(args);
+    private void setupNextButton() {
+        btnNext.setOnClickListener(v -> {
+            if (!validateFields()) return;
+            saveToSharedPrefs();
 
-        requireActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameContainer, secondFragment)
-                .addToBackStack(null)
-                .commit();
-    });
-}
+            SecondStep_Fragment secondFragment = new SecondStep_Fragment();
+            Bundle args = new Bundle();
+            args.putBoolean("isExistingMember", isExistingMember);
+            secondFragment.setArguments(args);
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frameContainer, secondFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+    }
+
     private boolean validateFields() {
-        String name   = etName.getText().toString().trim();
+        String name = etName.getText().toString().trim();
+        String surname = etSurname.getText().toString().trim();
         String mobile = etMobile.getText().toString().trim();
         String father = etFather.getText().toString().trim();
-        String dob    = etDob.getText().toString().trim();
-        String block  = etBlock.getText().toString().trim();
+        String dob = etDob.getText().toString().trim();
+        String block = etBlock.getText().toString().trim();
 
         if (name.isEmpty()) {
             etName.setError("Full name is required");
             etName.requestFocus();
+            return false;
+        }
+        if (surname.isEmpty()) {
+            etSurname.setError("Surname is required");
+            etSurname.requestFocus();
             return false;
         }
         if (mobile.length() != 10) {
@@ -885,13 +897,14 @@ private void setupNextButton() {
         SharedPreferences prefs = requireActivity()
                 .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit()
-                .putString("name",     etName.getText().toString().trim())
-                .putString("mobile",   etMobile.getText().toString().trim())
-                .putString("father",   etFather.getText().toString().trim())
-                .putString("gender",   selectedGender)
-                .putString("dob",      etDob.getText().toString().trim())
-                .putString("age",      etAge.getText().toString().trim())
-                .putString("block",    etBlock.getText().toString().trim())
+                .putString("name", etName.getText().toString().trim())
+                .putString("surname", etSurname.getText().toString().trim())
+                .putString("mobile", etMobile.getText().toString().trim())
+                .putString("father", etFather.getText().toString().trim())
+                .putString("gender", selectedGender)
+                .putString("dob", etDob.getText().toString().trim())
+                .putString("age", etAge.getText().toString().trim())
+                .putString("block", etBlock.getText().toString().trim())
                 .putString("division", etDivision.getText().toString().trim())
                 .putString("district", etDistrict.getText().toString().trim())
                 .putString("assembly", etAssembly.getText().toString().trim())

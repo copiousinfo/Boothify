@@ -71,10 +71,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imgNotification"
+                android:id="@+id/imgLogout"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/notification" />
+                app:tint="@color/white"
+                android:src="@drawable/logout" />
 
 
         </FrameLayout>

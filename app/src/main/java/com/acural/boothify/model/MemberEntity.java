@@ -17,6 +17,7 @@ public class MemberEntity {
 
 
     public String name;
+    public String surname;
     public String mobile;
     public String father;
     public String gender;
@@ -32,4 +33,5 @@ public class MemberEntity {
     public String occupation;
     public String education;
     public String imagePath;
+    public String voterDocPath;
 }

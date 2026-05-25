@@ -43,7 +43,7 @@ import androidx.room.RoomDatabase;
 
 import com.acural.boothify.model.MemberEntity;
 
-@Database(entities = {MemberEntity.class}, version = 4)
+@Database(entities = {MemberEntity.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract MemberDao memberDao();
